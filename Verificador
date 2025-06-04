@@ -1,0 +1,55 @@
+#Funcao para verificar se o numero e primo
+def verificarPrimo(numero):
+    if numero <= 1:
+        return False
+    elif numero == 2:
+        return True
+    elif numero % 2 == 0:
+        return False
+    ePrimo = True
+    div = 3
+    while div * div <= numero:
+        if numero % div == 0:
+            ePrimo = False
+            break
+        div += 2
+    if ePrimo:
+        return True
+    else:
+        return False
+
+
+def runVerifciadorNumPerfeito():
+    # Verificar se um numero e perfeito
+    # Usando teorema de euclides-euler
+    # toma-se um número natural n;
+    # verifica-se se 2n−1 é ou não um número primo;
+    # caso a resposta seja afirmativa, então (2n−1)×2n−1 é um número perfeito.
+    print("### Verificador de numero perfeito ###")
+    numeroDigitado = int(input("Digite um numero: "))
+
+    numeroTemporario = numeroDigitado
+    while numeroTemporario % 2 == 0:  # Verfica ate quando o resto e 0 ou seja par
+        numeroTemporario /= 2  # Divide ate chegar no numero impar
+    if verificarPrimo(numeroTemporario) == True:  # Verifica se o numero impar e primo
+        numeroTemporario += 1  # Adiciona 1 para usar o teorema
+        contador = 0  # Adciona um contador para achar o n da forumula
+        while numeroTemporario != 1:  # Enquanto for diferente de um roda o while
+            numeroTemporario /= 2
+            contador += 1  # Adiciona valor no contador que no caso vira o n da funcao
+        numeroPerfeito = (2**contador - 1) * (
+            2 ** (contador - 1)
+        )  # utiliza a funcao do teorema com dados encontrados
+        if (
+            numeroDigitado != numeroPerfeito
+        ):  # Verifica se o numero digitado e igual o numero encontrado pelo teorema
+            print(f"{numeroDigitado} nao e um numero perfeito!")  # E diferente
+        else:
+            print(f"{numeroDigitado} é um numero perfeito!")  # E igual
+    else:
+        print(
+            f"{numeroDigitado} não e um numero perfeito"
+        )  # Aqui como nao foi um numero primo o primeiro impar encontrado nao e um numero perfeito
+
+if __name__ == "__main__":
+  runVerifciadorNumPerfeito()
